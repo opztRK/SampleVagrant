@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Todolist;
 
-class Todolistcontroller extends Controller
+class TodolistController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +14,7 @@ class Todolistcontroller extends Controller
      */
     public function index()
     {
+        return view('todolists.index');
         //
     }
 

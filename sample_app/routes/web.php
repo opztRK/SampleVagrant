@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/','PlayersController@index');
-Route::get('/index','PlayersController@index');
+// Route::get('/','PlayersController@index');
+// Route::get('/index','PlayersController@index');
 //Todolist用
 Route::get('todolist', 'TodolistController@index');
 Route::get('todolist/create', 'TodolistController@create');

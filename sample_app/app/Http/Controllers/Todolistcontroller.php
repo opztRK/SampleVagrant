@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Todolist;
+use App\Models\Todolists;
 
 class TodolistController extends Controller
 {
@@ -13,8 +13,9 @@ class TodolistController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('todolists.index');
+    {   //Todolistsの全てを$listに代入
+        $list = Todolists::all();
+        return view('todolists.index', compact('list'));
         //
     }
 
@@ -25,6 +26,7 @@ class TodolistController extends Controller
      */
     public function create()
     {
+        return view('todolists.create');
         //
     }
 
@@ -35,7 +37,18 @@ class TodolistController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   //Todolistsテーブルを呼び出し
+        $todo = new Todolists();
+        //titleに送信値を入れる
+        $todo->title = $request->input('title');
+        //できた$todoカラムを登録
+        $todo->save();
+
+        return redirect('todolist')->with(
+            'status',
+            'No '.$todo->id.'の'.$todo->title.'を登録しました。'
+        );
+            
         //
     }
 
@@ -47,6 +60,10 @@ class TodolistController extends Controller
      */
     public function show($id)
     {
+        $todo = Todolists::find($id);
+
+        return view('todolists.info',compact('todo'));
+
         //
     }
 
@@ -58,6 +75,8 @@ class TodolistController extends Controller
      */
     public function edit($id)
     {
+        $todo = Todolists::find($id);
+        return view('todolists.edit',compact('todo'));
         //
     }
 
@@ -70,6 +89,16 @@ class TodolistController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $todo = Todolists::find($id);
+        $todo->title  =$request->input('title');
+        //saveで登録
+        $todo->save();
+
+        return redirect('todolist')->with(
+            'status',
+            'No'.$todo->id.'を'.$todo->title. 'に更新しました。'
+        );
+        
         //
     }
 
@@ -81,6 +110,13 @@ class TodolistController extends Controller
      */
     public function destroy($id)
     {
+        $todo = Todolists::find($id);
+        $todo->delete();
+
+        return redirect('todolist')->with(
+            'status',
+            'No'.$todo->id.'の'.$todo->title.'を削除しました。'
+        );
         //
     }
 }

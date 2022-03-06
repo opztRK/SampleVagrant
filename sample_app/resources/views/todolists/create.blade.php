@@ -7,7 +7,7 @@
                 登録画面
             </div>
             <div class="card-body">
-                <form method="POST" action="/todos">
+                <form method="POST" action="/todolist">
                     @csrf
                     <div class="form-group">
                         <label for="title" class="control-label">タイトル</label>
